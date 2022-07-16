@@ -292,16 +292,27 @@ class _LatestProductSelState extends State<LatestProductSel> {
                                   const EdgeInsets.all(double.infinity),
                               child: AspectRatio(
                                 aspectRatio: 1,
-                                child: Image.memory(
-                                  base64Decode(
-                                    (widget.latestp.image != null &&
-                                            widget.latestp.image.isNotEmpty)
-                                        ? widget.latestp.image
-                                        : newImage,
-                                  ),
-                                  height: 250,
-                                  gaplessPlayback: true,
-                                ),
+                                child: widget.latestp.image != null &&
+                                        widget.latestp.image.isNotEmpty
+                                    ? Image.memory(
+                                        base64Decode(
+                                          (widget.latestp.image != null &&
+                                                  widget
+                                                      .latestp.image.isNotEmpty)
+                                              ? widget.latestp.image
+                                              : newImage,
+                                        ),
+                                        height: 250,
+                                        gaplessPlayback: true,
+                                      )
+                                    : Container(
+                                        child: Image.asset(
+                                          "assets/images/no_img.png",
+                                          gaplessPlayback: true,
+                                          height: 100,
+                                          width: 100,
+                                        ),
+                                      ),
                               )),
                         )),
                         Align(
@@ -478,7 +489,8 @@ class _LatestProductSelState extends State<LatestProductSel> {
                   print('aaaaaaaaaaaaaaaaaakkk');
                   if (stockQuantity >= 1.0) {
                     getBuyOne(true, 1);
-
+                    Provider.of<CartLengthProvider>(context, listen: false)
+                        .getCartLength();
                     print('added');
                     setState(() {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -493,11 +505,11 @@ class _LatestProductSelState extends State<LatestProductSel> {
 
                       Provider.of<CartListProvider>(context, listen: false)
                           .getCartListData();
-                      Provider.of<CartLengthProvider>(context, listen: false)
-                          .getCartLength();
+                      setState(() {});
+
                       // isAddtoCartCalled = true;
                     });
-                    setState(() {});
+
                     ;
                   } else {
                     setState(() {

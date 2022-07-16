@@ -149,7 +149,10 @@ class _WishListState extends State<WishList> {
                                             CrossAxisAlignment.center,
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          (snapshot.data![index].image != null)
+                                          (snapshot.data![index].image !=
+                                                      null &&
+                                                  snapshot.data![index].image
+                                                      .isNotEmpty)
                                               ? Image.memory(
                                                   base64Decode(
                                                     snapshot.data![index].image,
@@ -158,9 +161,13 @@ class _WishListState extends State<WishList> {
                                                   width: 100,
                                                   height: 100,
                                                 )
-                                              : Image.asset(
-                                                  "assets/images/no_img.png",
-                                                  gaplessPlayback: true,
+                                              : Container(
+                                                  child: Image.asset(
+                                                    "assets/images/no_img.png",
+                                                    gaplessPlayback: true,
+                                                    height: 100,
+                                                    width: 100,
+                                                  ),
                                                 ),
                                           SizedBox(
                                             width: 6,
@@ -181,6 +188,7 @@ class _WishListState extends State<WishList> {
                                                       snapshot.data![index].name
                                                           .toString()
                                                           .toUpperCase(),
+                                                      maxLines: 3,
                                                       style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:

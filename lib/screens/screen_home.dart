@@ -68,8 +68,7 @@ class _ScreenHomeState extends State<ScreenHome> {
     getSelling();
     getBanners();
     getPromotions();
-Provider.of<CartLengthProvider>(context, listen: false)
-        .getCartLength();
+    Provider.of<CartLengthProvider>(context, listen: false).getCartLength();
     Provider.of<CategoryAPIProvider>(context, listen: false)
         .getCategData(context);
     getEmail();
@@ -167,7 +166,7 @@ Provider.of<CartLengthProvider>(context, listen: false)
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('language') != null) {
       lang = 'ar';
-       languageArabic=true; 
+      languageArabic = true;
     } else {
       lang = 'en';
     }
@@ -225,7 +224,6 @@ Provider.of<CartLengthProvider>(context, listen: false)
     } catch (e) {}
   }
 
-
   String? emaill;
   Future getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -236,21 +234,17 @@ Provider.of<CartLengthProvider>(context, listen: false)
       print('${emaill![0]}');
     }
   }
-  bool languageArabic=false;
-  arabicSelectedorNot() async{
+
+  bool languageArabic = false;
+  arabicSelectedorNot() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 //final lang=prefs.getString('language');
-if(prefs.getString('language')!=null){
-  setState(() {
-   languageArabic=true; 
-  });
-  
-  
-}
+    if (prefs.getString('language') != null) {
+      setState(() {
+        languageArabic = true;
+      });
+    }
   }
-
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +262,7 @@ if(prefs.getString('language')!=null){
                 mini: true,
                 backgroundColor: Colors.green[700],
                 onPressed: () {
-                  String url = "https://wa.me/+919745004552/?text=Hello";
+                  String url = "https://wa.me/+97470686116/?text=Hello";
                   launch(url);
                 },
                 child: Image.asset(
@@ -282,31 +276,28 @@ if(prefs.getString('language')!=null){
           body: NestedScrollView(
               // floatHeaderSlivers: true,
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                    SliverAppBar(leading:Icon(Icons.arrow_right,size:1,color:primaryColor),
+                    SliverAppBar(
+                      leading:
+                          Icon(Icons.arrow_right, size: 1, color: primaryColor),
                       // pinned: true,
                       floating: true,
                       iconTheme: IconThemeData(color: white),
-                      title: Row(
-                        children: [
-                          SizedBox(
-                            width:(languageArabic?4:18) ,
-                          ),
-                          SvgPicture.asset(
-                            "assets/images/Pmc.svg",
-                            height: 45,
-                            width: 180,
-                          ),
-                        ],
+                      title: Center(
+                        child: SvgPicture.asset(
+                          "assets/images/Pmc.svg",
+                          height: 45,
+                          width: 180,
+                        ),
                       ),
                       actions: [
-                        if (emaill != null&&emaill!.isNotEmpty)
-                          InkWell(onTap: (){
-                             Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                               PersonScreen()));
-                          },
+                        if (emaill != null && emaill!.isNotEmpty)
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PersonScreen()));
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(color: white),
@@ -318,7 +309,9 @@ if(prefs.getString('language')!=null){
                               margin: EdgeInsets.only(right: 6),
                               child: Center(
                                 child: Text(
-                                  (emaill != null) ? emaill![0].toUpperCase() : '',
+                                  (emaill != null)
+                                      ? emaill![0].toUpperCase()
+                                      : '',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w900,
@@ -349,7 +342,7 @@ if(prefs.getString('language')!=null){
                                             builder: (context) =>
                                                 ScreenSearch()));
                                   },
-                                  child:Stack(children: [
+                                  child: Stack(children: [
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       margin: EdgeInsets.all(3),
@@ -374,13 +367,18 @@ if(prefs.getString('language')!=null){
                                         ),
                                       ),
                                     ),
-      
                                     Align(
-                                      alignment:(languageArabic==true)? Alignment.centerLeft:Alignment.centerRight,
+                                      alignment: (languageArabic == true)
+                                          ? Alignment.centerLeft
+                                          : Alignment.centerRight,
                                       child: Padding(
-                                        padding:  EdgeInsets.only(
-                                            right:(languageArabic==true)?280:4 ,
-                                            left:(languageArabic==true)? 4.0:280,
+                                        padding: EdgeInsets.only(
+                                            right: (languageArabic == true)
+                                                ? 280
+                                                : 4,
+                                            left: (languageArabic == true)
+                                                ? 4.0
+                                                : 280,
                                             top: 4,
                                             bottom: 1),
                                         child: Container(
@@ -394,7 +392,8 @@ if(prefs.getString('language')!=null){
                                           child: Icon(Icons.search),
                                         ),
                                       ),
-                                    ) ]),
+                                    )
+                                  ]),
                                 ),
                               ),
                             ],
@@ -430,7 +429,8 @@ if(prefs.getString('language')!=null){
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
                                           child: FadeShimmer(
                                             height: 70,
                                             width: 100,
@@ -450,107 +450,126 @@ if(prefs.getString('language')!=null){
                                     ? ListView.separated(
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (ctx, index) {
-                                          String _imgString =
-                                              snapshot.getCategList[index].image;
-    
+                                          String _imgString = snapshot
+                                              .getCategList[index].image;
+
                                           // _bytesImage =
                                           //     Base64Decoder().convert(_imgString);
-    
-                                         // if (_bytesImage != null) {
-                                            return InkWell(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SubCategry(
-                                                                id: snapshot
-                                                                    .getCategList[
-                                                                        index]
-                                                                    .id,
-                                                                name: snapshot
-                                                                    .getCategList[
-                                                                        index]
-                                                                    .name)));
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.white),
-                                                  margin: EdgeInsets.all(6),
-                                                  padding: EdgeInsets.all(2),
-                                                  height: double.infinity,
-                                                  width: 110,
-                                                  child: Container(
-                                                    padding:
-                                                        EdgeInsets.only(top: 6),
-                                                    decoration: BoxDecoration(
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                              color:
-                                                                  Color.fromARGB(
-                                                                      255,
-                                                                      217,
-                                                                      218,
-                                                                      213),
-                                                              spreadRadius: 3,
-                                                              blurRadius: 4)
-                                                        ],
-                                                        border: Border.all(
-                                                            color: primaryColor,
-                                                            width: .1),
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                25),
-                                                        color: Colors.white),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Center(
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(20),
-                                                            child: (snapshot.getCategList[index].image!=null&&snapshot.getCategList[index].image.isNotEmpty) ?Image.memory(
-                                                          base64.decode(snapshot.getCategList[index].image)  ,
-                                                              height: 70,
-                                                              gaplessPlayback:
-                                                                  true,
-                                                            ):Container(child: Image.asset(
-                  "assets/images/no_img.png",height: 70,
-                  gaplessPlayback: true,
-                ),),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          height: 47,
-                                                          color: Color.fromARGB(
-                                                              255, 240, 236, 236),
-                                                          child: Center(
-                                                            child: Text(
-                                                              snapshot
+
+                                          // if (_bytesImage != null) {
+                                          return InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SubCategry(
+                                                              id: snapshot
                                                                   .getCategList[
                                                                       index]
-                                                                  .name,
-                                                              maxLines: 2,
-                                                              textAlign: TextAlign
-                                                                  .center,
-                                                              style: TextStyle(
-                                                                color:
-                                                                    primaryColor,
-                                                              ),
+                                                                  .id,
+                                                              name: snapshot
+                                                                  .getCategList[
+                                                                      index]
+                                                                  .name)));
+                                            },
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Colors.white),
+                                                margin: EdgeInsets.all(6),
+                                                padding: EdgeInsets.all(2),
+                                                height: double.infinity,
+                                                width: 110,
+                                                child: Container(
+                                                  padding:
+                                                      EdgeInsets.only(top: 6),
+                                                  decoration: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    217,
+                                                                    218,
+                                                                    213),
+                                                            spreadRadius: 3,
+                                                            blurRadius: 4)
+                                                      ],
+                                                      border: Border.all(
+                                                          color: primaryColor,
+                                                          width: .1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      color: Colors.white),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Center(
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          child: (snapshot
+                                                                          .getCategList[
+                                                                              index]
+                                                                          .image !=
+                                                                      null &&
+                                                                  snapshot
+                                                                      .getCategList[
+                                                                          index]
+                                                                      .image
+                                                                      .isNotEmpty)
+                                                              ? Image.memory(
+                                                                  base64.decode(snapshot
+                                                                      .getCategList[
+                                                                          index]
+                                                                      .image),
+                                                                  height: 70,
+                                                                  gaplessPlayback:
+                                                                      true,
+                                                                )
+                                                              : Container(
+                                                                  child: Image
+                                                                      .asset(
+                                                                    "assets/images/no_img.png",
+                                                                    height: 70,
+                                                                    gaplessPlayback:
+                                                                        true,
+                                                                  ),
+                                                                ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 47,
+                                                        color: Color.fromARGB(
+                                                            255, 240, 236, 236),
+                                                        child: Center(
+                                                          child: Text(
+                                                            snapshot
+                                                                .getCategList[
+                                                                    index]
+                                                                .name,
+                                                            maxLines: 2,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  primaryColor,
                                                             ),
                                                           ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )),
-                                            );
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )),
+                                          );
                                           // }
-    
+
                                           // return Center(
                                           //     child: CircularProgressIndicator());
                                         },
@@ -595,35 +614,39 @@ if(prefs.getString('language')!=null){
                                           viewportFraction: 1,
                                           height: 192,
                                           autoPlay: true,
-                                         //reverse: true,
+                                          //reverse: true,
                                           enableInfiniteScroll: false,
-                                          autoPlayInterval: Duration(seconds: 4)),
+                                          autoPlayInterval:
+                                              Duration(seconds: 4)),
                                       itemCount: list.length,
                                       itemBuilder: (context, index, realindex) {
                                         final images = list[index].image;
-                                        return 
-                                        InkWell(
-                                          onTap: () {if(list[index].id==1){
-
-                                          }else{
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ScreenBrand1(
-                                                          id: list[index].id,
-                                                          name: list[index].name,
-                                                        )));
-                                          }},
+                                        return InkWell(
+                                          onTap: () {
+                                            if (list[index].id == 1) {
+                                            } else {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ScreenBrand1(
+                                                            id: list[index].id,
+                                                            name: list[index]
+                                                                .name,
+                                                          )));
+                                            }
+                                          },
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(10)),
+                                                      BorderRadius.circular(
+                                                          10)),
                                               margin: EdgeInsets.symmetric(
                                                   horizontal: 2),
-                                              child: Image.network(images,
-                                                  gaplessPlayback: true,
-                                                )),
+                                              child: Image.network(
+                                                images,
+                                                gaplessPlayback: true,
+                                              )),
                                         );
                                       }),
                                   SizedBox(
@@ -693,7 +716,8 @@ if(prefs.getString('language')!=null){
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => PromoBuyOne(
+                                                builder: (context) =>
+                                                    PromoBuyOne(
                                                       type: getType(index),
                                                       id: plist[index].id,
                                                       name: plist[index].name,
@@ -704,14 +728,16 @@ if(prefs.getString('language')!=null){
                                           : Container(
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(15)),
+                                                      BorderRadius.circular(
+                                                          15)),
                                               margin: EdgeInsets.symmetric(
                                                   horizontal: 5),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 child: Image.network(
-                                                  plist[index].image,gaplessPlayback: true,
+                                                  plist[index].image,
+                                                  gaplessPlayback: true,
                                                   width: double.infinity,
                                                 ),
                                               ),
@@ -723,7 +749,9 @@ if(prefs.getString('language')!=null){
                         ),
                       ),
                       Column(children: [
-              SizedBox(height: 2,),
+                        SizedBox(
+                          height: 2,
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0, right: 10),
                           child: Row(
@@ -770,23 +798,22 @@ if(prefs.getString('language')!=null){
                                 : ListView.separated(
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (ctx, index) {
-                                    return InkWell(
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LatestProductSel(
-                                                            latestp: latestList[
-                                                                index])));
-                                          },
-                                          child: products(
-                                              latestList[index].name,
-                                        latestList[index].image  ,
-                                              latestList[index]
-                                                  .price
-                                                  .toStringAsFixed(2)),
-                                        );
-                                   
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LatestProductSel(
+                                                          latestp: latestList[
+                                                              index])));
+                                        },
+                                        child: products(
+                                            latestList[index].name,
+                                            latestList[index].image,
+                                            latestList[index]
+                                                .price
+                                                .toStringAsFixed(2)),
+                                      );
                                     },
                                     separatorBuilder: (ctx, index) {
                                       return Divider(
@@ -818,8 +845,10 @@ if(prefs.getString('language')!=null){
                               children: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => ViewSelling()));
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewSelling()));
                                   },
                                   child: Row(
                                     children: [
@@ -853,7 +882,7 @@ if(prefs.getString('language')!=null){
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (ctx, index) {
                                   String _imgString = sellingList[index].image;
-    
+
                                   _bytesImage =
                                       Base64Decoder().convert(_imgString);
                                   if (_bytesImage != null) {
@@ -868,12 +897,12 @@ if(prefs.getString('language')!=null){
                                         },
                                         child: products(
                                             sellingList[index].name,
-                                           sellingList[index].image ,
+                                            sellingList[index].image,
                                             sellingList[index]
                                                 .price
                                                 .toStringAsFixed(2)));
                                   }
-    
+
                                   return Center(
                                       child: CircularProgressIndicator());
                                 },
@@ -938,7 +967,7 @@ if(prefs.getString('language')!=null){
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (ctx, index) {
                                   String _imgStrin = featuredList[index].image;
-    
+
                                   _bytesImage =
                                       Base64Decoder().convert(_imgStrin);
                                   if (_bytesImage != null) {
@@ -953,7 +982,7 @@ if(prefs.getString('language')!=null){
                                         },
                                         child: products(
                                             featuredList[index].name,
-                                           featuredList[index].image,
+                                            featuredList[index].image,
                                             featuredList[index]
                                                 .price
                                                 .toStringAsFixed(2)));
